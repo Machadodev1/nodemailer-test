@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Registro</title>
+  </head>
+  <body>
+    <h1>Registro</h1>
+    <p><%= message %></p>
+
+    <% if (typeof setupError !== 'undefined' && setupError) { %>
+      <h3>Info de setup (fallback):</h3>
+      <pre style="color:orange"><%= setupError %></pre>
+    <% } %>
+
+    <% if (typeof mailError !== 'undefined' && mailError) { %>
+      <h3>Error enviando correo:</h3>
+      <pre style="color:red"><%= mailError %></pre>
+    <% } %>
+
+    <% if (typeof previewUrl !== 'undefined' && previewUrl) { %>
+      <h3>Previsualización del correo (Ethereal):</h3>
+      <p><a href="<%= previewUrl %>" target="_blank"><%= previewUrl %></a></p>
+    <% } %>
+
+    <% if (typeof rawMessage !== 'undefined' && rawMessage) { %>
+      <h3>Contenido del correo (local):</h3>
+      <pre style="white-space:pre-wrap; border:1px solid #ccc; padding:8px"><%= rawMessage %></pre>
+    <% } %>
+    <% if (typeof mailInfo !== 'undefined' && mailInfo) { %>
+      <h3>Info del envío:</h3>
+      <pre style="white-space:pre-wrap; border:1px solid #ccc; padding:8px"><%= mailInfo %></pre>
+    <% } %>
+    <p><a href="/">Volver al inicio</a></p>
+  </body>
+</html>

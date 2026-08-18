@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Nuevo Usuario</title>
+  </head>
+  <body>
+    <h1>Nuevo Usuario</h1>
+    <p><a href="/users">Volver a usuarios</a></p>
+    <% if (typeof error !== 'undefined') { %>
+      <p style="color:red"><%= error %></p>
+    <% } %>
+    <form action="/users" method="post">
+      <div>
+        <label>Correo:</label>
+        <input type="email" name="correo" required />
+      </div>
+      <div>
+        <label>Contraseña:</label>
+        <input type="password" name="contra" required />
+      </div>
+      <div>
+        <label>Rol:</label>
+        <select name="rol">
+          <option value="Empleado">Empleado</option>
+          <option value="Admin">Admin</option>
+        </select>
+      </div>
+      <div>
+        <button type="submit">Crear</button>
+      </div>
+    </form>
+  </body>
+</html>

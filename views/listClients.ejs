@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Clientes</title>
+  </head>
+  <body>
+    <h1>Clientes</h1>
+    <p><a href="/">Inicio</a> | <a href="/clients/new">Nuevo Cliente</a></p>
+    <table border="1" cellpadding="6">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Teléfono</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% clients.forEach(function(c) { %>
+          <tr>
+            <td><%= c.nombre %></td>
+            <td><%= c.correo %></td>
+            <td><%= c.telefono %></td>
+            <td>
+              <a href="/clients/<%= c._id %>/edit">Editar</a>
+              <form action="/clients/<%= c._id %>/delete" method="post" style="display:inline">
+                <button type="submit" onclick="return confirm('Eliminar cliente?')">Eliminar</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </body>
+</html>

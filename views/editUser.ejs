@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Editar Usuario</title>
+  </head>
+  <body>
+    <h1>Editar Usuario</h1>
+    <p><a href="/users">Volver a usuarios</a></p>
+    <% if (typeof error !== 'undefined') { %>
+      <p style="color:red"><%= error %></p>
+    <% } %>
+    <form action="/users/<%= usuario._id %>/update" method="post">
+      <div>
+        <label>Correo:</label>
+        <input type="email" name="correo" value="<%= usuario.correo %>" required />
+      </div>
+      <div>
+        <label>Contraseña:</label>
+        <input type="text" name="contra" value="<%= usuario.contra %>" required />
+      </div>
+      <div>
+        <label>Rol:</label>
+        <select name="rol">
+          <option value="Empleado" <%= usuario.rol==='Empleado'? 'selected':'' %>>Empleado</option>
+          <option value="Admin" <%= usuario.rol==='Admin'? 'selected':'' %>>Admin</option>
+        </select>
+      </div>
+      <div>
+        <button type="submit">Actualizar</button>
+      </div>
+    </form>
+  </body>
+</html>

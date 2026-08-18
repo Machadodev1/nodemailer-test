@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Nuevo Cliente</title>
+  </head>
+  <body>
+    <h1>Nuevo Cliente</h1>
+    <p><a href="/clients">Volver a clientes</a></p>
+    <% if (typeof error !== 'undefined') { %>
+      <p style="color:red"><%= error %></p>
+    <% } %>
+    <form action="/clients" method="post">
+      <div>
+        <label>Nombre:</label>
+        <input type="text" name="nombre" required />
+      </div>
+      <div>
+        <label>Correo:</label>
+        <input type="email" name="correo" required />
+      </div>
+      <div>
+        <label>Teléfono:</label>
+        <input type="text" name="telefono" required />
+      </div>
+      <div>
+        <button type="submit">Crear</button>
+      </div>
+    </form>
+  </body>
+</html>
