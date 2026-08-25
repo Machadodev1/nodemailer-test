@@ -1,4 +1,5 @@
 import Cliente from '../models/client.model.js';
+import { redirectToError } from '../utils/error.js';
 
 export async function listClients(req, res) {
   const clients = await Cliente.find().lean();
@@ -17,7 +18,7 @@ export async function handleCreateClient(req, res) {
     res.redirect('/clients');
   } catch (err) {
     console.error(err);
-    res.status(400).render('createClient', { error: 'Error creando cliente' });
+    return redirectToError(res, 400, 'Error creando cliente');
   }
 }
 
@@ -28,7 +29,7 @@ export async function showEditClient(req, res) {
     res.render('editClient', { cliente });
   } catch (err) {
     console.error(err);
-    res.redirect('/clients');
+    return redirectToError(res, 500, 'Error cargando cliente');
   }
 }
 
@@ -39,7 +40,7 @@ export async function handleUpdateClient(req, res) {
     res.redirect('/clients');
   } catch (err) {
     console.error(err);
-    res.status(400).render('editClient', { error: 'Error actualizando cliente' });
+    return redirectToError(res, 400, 'Error actualizando cliente');
   }
 }
 
@@ -55,6 +56,6 @@ export async function handleDeleteClient(req, res) {
     res.redirect('/clients');
   } catch (err) {
     console.error(err);
-    res.redirect('/clients');
+    return redirectToError(res, 500, 'Error eliminando cliente');
   }
 }

@@ -1,31 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
-    <meta charset="utf-8" />
-    <title>Nuevo Cliente</title>
+    <%- include('partials/head', { title: 'Nuevo Cliente' }) %>
   </head>
-  <body>
-    <h1>Nuevo Cliente</h1>
-    <p><a href="/clients">Volver a clientes</a></p>
-    <% if (typeof error !== 'undefined') { %>
-      <p style="color:red"><%= error %></p>
-    <% } %>
-    <form action="/clients" method="post">
-      <div>
-        <label>Nombre:</label>
-        <input type="text" name="nombre" required />
+  <body class="bg-light">
+    <%- include('partials/navbar') %>
+    <div class="container py-4">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Nuevo Cliente</h1>
+        <a href="/clients" class="btn btn-outline-secondary btn-sm">Volver a clientes</a>
       </div>
-      <div>
-        <label>Correo:</label>
-        <input type="email" name="correo" required />
+
+      <% if (typeof error !== 'undefined' && error) { %>
+        <div class="alert alert-danger"><%= error %></div>
+      <% } %>
+
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <form action="/clients" method="post">
+            <div class="mb-3">
+              <label class="form-label">Nombre</label>
+              <input type="text" class="form-control" name="nombre" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Correo</label>
+              <input type="email" class="form-control" name="correo" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Teléfono</label>
+              <input type="text" class="form-control" name="telefono" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Crear</button>
+          </form>
+        </div>
       </div>
-      <div>
-        <label>Teléfono:</label>
-        <input type="text" name="telefono" required />
-      </div>
-      <div>
-        <button type="submit">Crear</button>
-      </div>
-    </form>
+    </div>
   </body>
 </html>

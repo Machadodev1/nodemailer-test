@@ -1,5 +1,7 @@
 import Usuario from '../models/user.model.js';
 import bcrypt from 'bcrypt';
+import { redirectToError } from '../utils/error.js';
+import { sendEmail } from '../services/mail.service.js';
 
 export async function listUsers(req, res) {
   const users = await Usuario.find().lean();
@@ -22,10 +24,18 @@ export async function handleCreateUser(req, res) {
     });
 
     await usuario.save();
+
+    const professorName = process.env.PROFESOR_NAME || 'Profesor';
+    await sendEmail(
+      correo,
+      'Usuario creado',
+      `Hola,\n\nTu usuario fue creado por el ${professorName}.\n\nCorreo: ${correo}\nRol: ${rol}\n\nSaludos.`
+    );
+
     res.redirect('/users');
   } catch (err) {
     console.error(err);
-    res.status(400).render('createUser', { error: 'Error creando usuario' });
+    return redirectToError(res, 400, 'Error creando usuario');
   }
 }
 
@@ -36,7 +46,7 @@ export async function showEditUser(req, res) {
     res.render('editUser', { usuario });
   } catch (err) {
     console.error(err);
-    res.redirect('/users');
+    return redirectToError(res, 500, 'Error cargando usuario');
   }
 }
 
@@ -53,7 +63,7 @@ export async function handleUpdateUser(req, res) {
     res.redirect('/users');
   } catch (err) {
     console.error(err);
-    res.status(400).render('editUser', { error: 'Error actualizando usuario' });
+    return redirectToError(res, 400, 'Error actualizando usuario');
   }
 }
 
@@ -69,6 +79,6 @@ export async function handleDeleteUser(req, res) {
     res.redirect('/users');
   } catch (err) {
     console.error(err);
-    res.redirect('/users');
+    return redirectToError(res, 500, 'Error eliminando usuario');
   }
 }

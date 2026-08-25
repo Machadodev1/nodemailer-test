@@ -1,34 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
-    <meta charset="utf-8" />
-    <title>Nuevo Usuario</title>
+    <%- include('partials/head', { title: 'Nuevo Usuario' }) %>
   </head>
-  <body>
-    <h1>Nuevo Usuario</h1>
-    <p><a href="/users">Volver a usuarios</a></p>
-    <% if (typeof error !== 'undefined') { %>
-      <p style="color:red"><%= error %></p>
-    <% } %>
-    <form action="/users" method="post">
-      <div>
-        <label>Correo:</label>
-        <input type="email" name="correo" required />
+  <body class="bg-light">
+    <%- include('partials/navbar') %>
+    <div class="container py-4">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Nuevo Usuario</h1>
+        <a href="/users" class="btn btn-outline-secondary btn-sm">Volver a usuarios</a>
       </div>
-      <div>
-        <label>Contraseña:</label>
-        <input type="password" name="contra" required />
+
+      <% if (typeof error !== 'undefined' && error) { %>
+        <div class="alert alert-danger"><%= error %></div>
+      <% } %>
+
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <form action="/users" method="post">
+            <div class="mb-3">
+              <label class="form-label">Correo</label>
+              <input type="email" class="form-control" name="correo" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Contraseña</label>
+              <input type="password" class="form-control" name="contra" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Rol</label>
+              <select class="form-select" name="rol">
+                <option value="Empleado">Empleado</option>
+                <option value="Admin">Admin</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Crear</button>
+          </form>
+        </div>
       </div>
-      <div>
-        <label>Rol:</label>
-        <select name="rol">
-          <option value="Empleado">Empleado</option>
-          <option value="Admin">Admin</option>
-        </select>
-      </div>
-      <div>
-        <button type="submit">Crear</button>
-      </div>
-    </form>
+    </div>
   </body>
 </html>

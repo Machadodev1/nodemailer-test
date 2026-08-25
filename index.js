@@ -11,6 +11,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
 
+app.get('/error', (req, res) => {
+  const status = Number(req.query.status) || 500;
+  const error = req.query.error ? decodeURIComponent(req.query.error) : 'Ha ocurrido un error';
+  return res.status(status).render('error', { status, error });
+});
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -38,6 +44,24 @@ app.post('/clients', clientsController.handleCreateClient);
 app.get('/clients/:id/edit', clientsController.showEditClient);
 app.post('/clients/:id/update', clientsController.handleUpdateClient);
 app.post('/clients/:id/delete', clientsController.handleDeleteClient);
+
+app.use((req, res) => {
+  return res.status(404).render('error', {
+    status: 404,
+    error: 'Página no encontrada',
+  });
+});
+
+app.use((err, req, res, next) => {
+  console.error(err);
+  const status = err?.status || 500;
+  const message = err?.message || 'Error interno del servidor';
+
+  return res.status(status).render('error', {
+    status,
+    error: message,
+  });
+});
 
 const PORT = process.env.PORT || 3000;
 

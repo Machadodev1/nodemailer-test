@@ -1,36 +1,64 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Usuarios</title>
-  </head>
-  <body>
-    <h1>Usuarios</h1>
-    <p><a href="/">Inicio</a> | <a href="/users/new">Nuevo Usuario</a></p>
-    <table border="1" cellpadding="6">
-      <thead>
-        <tr>
-          <th>Correo</th>
-          <th>Rol</th>
-          <th>Creado</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% users.forEach(function(u) { %>
-          <tr>
-            <td><%= u.correo %></td>
-            <td><%= u.rol %></td>
-            <td><%= new Date(u.createdAt).toLocaleString() %></td>
-            <td>
-              <a href="/users/<%= u._id %>/edit">Editar</a>
-              <form action="/users/<%= u._id %>/delete" method="post" style="display:inline">
-                <button type="submit" onclick="return confirm('Eliminar usuario?')">Eliminar</button>
-              </form>
-            </td>
-          </tr>
-        <% }) %>
-      </tbody>
-    </table>
-  </body>
+<html lang="es">
+
+<head>
+  <%- include('partials/head', { title: 'Usuarios' }) %>
+</head>
+
+<body class="bg-light">
+  <%- include('partials/navbar') %>
+  <div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="mb-0">Usuarios</h1>
+      <a href="/users/new" class="btn btn-primary">Nuevo Usuario</a>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table id="usersTable" class="table table-hover mb-0">
+            <thead class="table-dark">
+              <tr>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Creado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% users.forEach(function(u) { %>
+                <tr>
+                  <td><%= u.correo %></td>
+                  <td><span class="badge bg-secondary"><%= u.rol %></span></td>
+                  <td><%= new Date(u.createdAt).toLocaleString() %></td>
+                  <td>
+                    <div class="d-flex gap-2">
+                      <a href="/users/<%= u._id %>/edit" class="btn btn-sm btn-warning">Editar</a>
+                      <form action="/users/<%= u._id %>/delete" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Eliminar usuario?')">Eliminar</button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      $('#usersTable').DataTable({
+        language: {
+          url: 'https://cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+        },
+        pageLength: 10,
+        order: [[2, 'desc']]
+      });
+    });
+  </script>
+</body>
+
 </html>

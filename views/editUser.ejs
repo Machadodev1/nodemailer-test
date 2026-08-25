@@ -1,34 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
-    <meta charset="utf-8" />
-    <title>Editar Usuario</title>
+    <%- include('partials/head', { title: 'Editar Usuario' }) %>
   </head>
-  <body>
-    <h1>Editar Usuario</h1>
-    <p><a href="/users">Volver a usuarios</a></p>
-    <% if (typeof error !== 'undefined') { %>
-      <p style="color:red"><%= error %></p>
-    <% } %>
-    <form action="/users/<%= usuario._id %>/update" method="post">
-      <div>
-        <label>Correo:</label>
-        <input type="email" name="correo" value="<%= usuario.correo %>" required />
+  <body class="bg-light">
+    <%- include('partials/navbar') %>
+    <div class="container py-4">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Editar Usuario</h1>
+        <a href="/users" class="btn btn-outline-secondary btn-sm">Volver a usuarios</a>
       </div>
-      <div>
-        <label>Contraseña:</label>
-        <input type="text" name="contra" value="<%= usuario.contra %>" required />
+
+      <% if (typeof error !== 'undefined' && error) { %>
+        <div class="alert alert-danger"><%= error %></div>
+      <% } %>
+
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <form action="/users/<%= usuario._id %>/update" method="post">
+            <div class="mb-3">
+              <label class="form-label">Correo</label>
+              <input type="email" class="form-control" name="correo" value="<%= usuario.correo %>" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Contraseña</label>
+              <input type="text" class="form-control" name="contra" value="" placeholder="Deja vacío para conservar la actual" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Rol</label>
+              <select class="form-select" name="rol">
+                <option value="Empleado" <%= usuario.rol === 'Empleado' ? 'selected' : '' %>>Empleado</option>
+                <option value="Admin" <%= usuario.rol === 'Admin' ? 'selected' : '' %>>Admin</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+          </form>
+        </div>
       </div>
-      <div>
-        <label>Rol:</label>
-        <select name="rol">
-          <option value="Empleado" <%= usuario.rol==='Empleado'? 'selected':'' %>>Empleado</option>
-          <option value="Admin" <%= usuario.rol==='Admin'? 'selected':'' %>>Admin</option>
-        </select>
-      </div>
-      <div>
-        <button type="submit">Actualizar</button>
-      </div>
-    </form>
+    </div>
   </body>
 </html>

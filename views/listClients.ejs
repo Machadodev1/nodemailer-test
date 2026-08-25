@@ -1,36 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
-    <meta charset="utf-8" />
-    <title>Clientes</title>
+    <%- include('partials/head', { title: 'Clientes' }) %>
   </head>
-  <body>
-    <h1>Clientes</h1>
-    <p><a href="/">Inicio</a> | <a href="/clients/new">Nuevo Cliente</a></p>
-    <table border="1" cellpadding="6">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Correo</th>
-          <th>Teléfono</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% clients.forEach(function(c) { %>
-          <tr>
-            <td><%= c.nombre %></td>
-            <td><%= c.correo %></td>
-            <td><%= c.telefono %></td>
-            <td>
-              <a href="/clients/<%= c._id %>/edit">Editar</a>
-              <form action="/clients/<%= c._id %>/delete" method="post" style="display:inline">
-                <button type="submit" onclick="return confirm('Eliminar cliente?')">Eliminar</button>
-              </form>
-            </td>
-          </tr>
-        <% }) %>
-      </tbody>
-    </table>
+  <body class="bg-light">
+    <%- include('partials/navbar') %>
+    <div class="container py-4">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Clientes</h1>
+        <a href="/clients/new" class="btn btn-primary">Nuevo Cliente</a>
+      </div>
+
+      <div class="card shadow-sm">
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table id="clientsTable" class="table table-hover mb-0">
+              <thead class="table-dark">
+                <tr>
+                  <th>Nombre</th>
+                  <th>Correo</th>
+                  <th>Teléfono</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% clients.forEach(function(c) { %>
+                  <tr>
+                    <td><%= c.nombre %></td>
+                    <td><%= c.correo %></td>
+                    <td><%= c.telefono %></td>
+                    <td>
+                      <div class="d-flex gap-2">
+                        <a href="/clients/<%= c._id %>/edit" class="btn btn-sm btn-warning">Editar</a>
+                        <form action="/clients/<%= c._id %>/delete" method="post" class="d-inline">
+                          <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Eliminar cliente?')">Eliminar</button>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        $('#clientsTable').DataTable({
+          language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+          },
+          pageLength: 10,
+          order: [[0, 'asc']]
+        });
+      });
+    </script>
   </body>
 </html>

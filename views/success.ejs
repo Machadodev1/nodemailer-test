@@ -1,36 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
-    <meta charset="utf-8" />
-    <title>Registro</title>
+    <%- include('partials/head', { title: 'Registro' }) %>
   </head>
-  <body>
-    <h1>Registro</h1>
-    <p><%= message %></p>
+  <body class="bg-light">
+    <%- include('partials/navbar') %>
+    <div class="container py-5">
+      <div class="card shadow-sm border-success">
+        <div class="card-body p-4">
+          <h1 class="h3 text-success mb-3">Registro</h1>
+          <div class="alert alert-success"><%= message %></div>
 
-    <% if (typeof setupError !== 'undefined' && setupError) { %>
-      <h3>Info de setup (fallback):</h3>
-      <pre style="color:orange"><%= setupError %></pre>
-    <% } %>
+          <% if (typeof setupError !== 'undefined' && setupError) { %>
+            <h3 class="h5">Info de setup (fallback):</h3>
+            <pre class="bg-light border rounded p-3 text-warning"><%= setupError %></pre>
+          <% } %>
 
-    <% if (typeof mailError !== 'undefined' && mailError) { %>
-      <h3>Error enviando correo:</h3>
-      <pre style="color:red"><%= mailError %></pre>
-    <% } %>
+          <% if (typeof mailError !== 'undefined' && mailError) { %>
+            <h3 class="h5 text-danger">Error enviando correo:</h3>
+            <pre class="bg-light border rounded p-3 text-danger"><%= mailError %></pre>
+          <% } %>
 
-    <% if (typeof previewUrl !== 'undefined' && previewUrl) { %>
-      <h3>Previsualización del correo (Ethereal):</h3>
-      <p><a href="<%= previewUrl %>" target="_blank"><%= previewUrl %></a></p>
-    <% } %>
+          <% if (typeof previewUrl !== 'undefined' && previewUrl) { %>
+            <h3 class="h5">Previsualización del correo (Ethereal):</h3>
+            <p><a href="<%= previewUrl %>" target="_blank"><%= previewUrl %></a></p>
+          <% } %>
 
-    <% if (typeof rawMessage !== 'undefined' && rawMessage) { %>
-      <h3>Contenido del correo (local):</h3>
-      <pre style="white-space:pre-wrap; border:1px solid #ccc; padding:8px"><%= rawMessage %></pre>
-    <% } %>
-    <% if (typeof mailInfo !== 'undefined' && mailInfo) { %>
-      <h3>Info del envío:</h3>
-      <pre style="white-space:pre-wrap; border:1px solid #ccc; padding:8px"><%= mailInfo %></pre>
-    <% } %>
-    <p><a href="/">Volver al inicio</a></p>
+          <% if (typeof rawMessage !== 'undefined' && rawMessage) { %>
+            <h3 class="h5">Contenido del correo (local):</h3>
+            <pre class="bg-light border rounded p-3"><%= rawMessage %></pre>
+          <% } %>
+
+          <% if (typeof mailInfo !== 'undefined' && mailInfo) { %>
+            <h3 class="h5">Info del envío:</h3>
+            <pre class="bg-light border rounded p-3"><%= mailInfo %></pre>
+          <% } %>
+
+          <a href="/" class="btn btn-primary mt-3">Volver al inicio</a>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

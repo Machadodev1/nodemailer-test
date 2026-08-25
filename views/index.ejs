@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<title>Inicio</title>
-	</head>
-	<body>
-		<h1>Bienvenido</h1>
-		<p>
-			<a href="/register">Registrar usuario</a> |
-			<a href="/users">Usuarios</a> |
-			<a href="/clients">Clientes</a>
-		</p>
-	</body>
+<html lang="es">
+  <head>
+    <%- include('partials/head', { title: 'Inicio' }) %>
+  </head>
+  <body class="bg-light">
+    <%- include('partials/navbar') %>
+    <div class="container py-5">
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <h1 class="mb-3">Bienvenido</h1>
+          <div class="d-flex flex-wrap gap-2">
+            <a href="/register" class="btn btn-primary">Registrar usuario</a>
+            <a href="/users" class="btn btn-outline-primary">Usuarios</a>
+            <a href="/clients" class="btn btn-outline-primary">Clientes</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

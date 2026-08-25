@@ -3,7 +3,9 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-// Transportador Gmail simple según tu snippet, convertido a ESM y usando env `GPASS`.
+const professorName = process.env.PROFESOR_NAME || 'Profesor';
+const senderEmail = process.env.MAIL_FROM || process.env.GMAIL_USER || 'egxx@xxsena.edu.co';
+
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -14,7 +16,7 @@ const transporter = nodemailer.createTransport({
 
 export async function sendEmail(email, subject, text) {
   const mailOptions = {
-    from: process.env.MAIL_FROM || process.env.GMAIL_USER || 'egxx@xxsena.edu.co',
+    from: `"${professorName}" <${senderEmail}>`,
     to: email,
     subject,
     text,
