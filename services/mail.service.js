@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const professorName = process.env.PROFESOR_NAME || 'Profesor';
+const professorName = process.env.PROFESOR_NAME || 'Medevs';
 const senderEmail = process.env.MAIL_FROM || process.env.GMAIL_USER || 'egxx@xxsena.edu.co';
 
 const transporter = nodemailer.createTransport({

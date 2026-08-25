@@ -5,17 +5,20 @@
   </head>
   <body class="bg-light">
     <%- include('partials/navbar') %>
-    <div class="container py-5">
-      <div class="card shadow-sm">
-        <div class="card-body p-4">
-          <h1 class="mb-3">Bienvenido</h1>
-          <div class="d-flex flex-wrap gap-2">
-            <a href="/register" class="btn btn-primary">Registrar usuario</a>
-            <a href="/users" class="btn btn-outline-primary">Usuarios</a>
-            <a href="/clients" class="btn btn-outline-primary">Clientes</a>
-          </div>
+    <main class="container page-shell">
+      <section class="card dashboard-hero mb-4">
+        <div class="card-body">
+          <div class="page-eyebrow text-light opacity-75">Panel principal</div>
+          <h1 class="dashboard-title mt-3">Tu operación, en un solo lugar.</h1>
+          <p class="dashboard-copy mt-4 mb-4">Organiza la información de tus usuarios y clientes con una vista simple, rápida y segura.</p>
+          <a href="/clients" class="btn btn-light">Ver clientes <i class="bi bi-arrow-up-right ms-1"></i></a>
         </div>
+      </section>
+      <div class="row g-3">
+        <div class="col-md-4"><a href="/register" class="quick-link"><i class="bi bi-person-plus"></i><strong>Registrar usuario</strong><span>Da acceso a un nuevo integrante.</span></a></div>
+        <div class="col-md-4"><a href="/users" class="quick-link"><i class="bi bi-people"></i><strong>Gestionar usuarios</strong><span>Administra permisos y perfiles.</span></a></div>
+        <div class="col-md-4"><a href="/clients" class="quick-link"><i class="bi bi-building"></i><strong>Gestionar clientes</strong><span>Consulta y actualiza tu cartera.</span></a></div>
       </div>
-    </div>
+    </main>
   </body>
 </html>

@@ -25,7 +25,6 @@ export async function handleRegister(req, res) {
       cliente.save(),
     ]);
 
-    // Enviar correo de confirmación y pasar resultado a la vista
     try {
       const info = await sendEmail(correo, 'Registro exitoso', `Hola ${nombre},\n\nTu registro se completó correctamente.\n\nSaludos!`);
       return res.render('success', {

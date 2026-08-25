@@ -3,7 +3,11 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import connectDB from './config/connectiondb.js';
-import * as registerController from './controllers/register.controller.js';
+import authRoutes from './routes/auth.routes.js';
+import registerRoutes from './routes/register.routes.js';
+import usersRoutes from './routes/users.routes.js';
+import clientsRoutes from './routes/clients.routes.js';
+import { authenticateToken } from './middleware/auth.middleware.js';
 
 dotenv.config();
 
@@ -22,28 +26,13 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => res.render('index'));
-app.get('/register', registerController.showForm);
-app.post('/register', registerController.handleRegister);
-
-// Users CRUD
-import * as usersController from './controllers/users.controller.js';
-app.get('/users', usersController.listUsers);
-app.get('/users/new', usersController.showCreateUser);
-app.post('/users', usersController.handleCreateUser);
-app.get('/users/:id/edit', usersController.showEditUser);
-app.post('/users/:id/update', usersController.handleUpdateUser);
-app.post('/users/:id/delete', usersController.handleDeleteUser);
-
-// Clients CRUD
-import * as clientsController from './controllers/clients.controller.js';
-app.get('/clients', clientsController.listClients);
-app.get('/clients/new', clientsController.showCreateClient);
-app.post('/clients', clientsController.handleCreateClient);
-app.get('/clients/:id/edit', clientsController.showEditClient);
-app.post('/clients/:id/update', clientsController.handleUpdateClient);
-app.post('/clients/:id/delete', clientsController.handleDeleteClient);
+app.use('/auth', authRoutes);
+app.get('/', authenticateToken, (req, res) => res.render('index'));
+app.use(registerRoutes);
+app.use('/users', usersRoutes);
+app.use('/clients', clientsRoutes);
 
 app.use((req, res) => {
   return res.status(404).render('error', {

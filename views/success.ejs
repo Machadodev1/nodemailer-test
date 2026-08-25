@@ -5,11 +5,13 @@
   </head>
   <body class="bg-light">
     <%- include('partials/navbar') %>
-    <div class="container py-5">
-      <div class="card shadow-sm border-success">
-        <div class="card-body p-4">
-          <h1 class="h3 text-success mb-3">Registro</h1>
-          <div class="alert alert-success"><%= message %></div>
+    <main class="container page-shell py-5">
+      <div class="card form-card">
+        <div class="card-body">
+          <div class="error-icon mb-3"><i class="bi bi-check2"></i></div>
+          <div class="page-eyebrow">Registro completado</div>
+          <h1 class="h3 mb-3">Todo está listo</h1>
+          <div class="alert alert-secondary"><%= message %></div>
 
           <% if (typeof setupError !== 'undefined' && setupError) { %>
             <h3 class="h5">Info de setup (fallback):</h3>
@@ -36,9 +38,9 @@
             <pre class="bg-light border rounded p-3"><%= mailInfo %></pre>
           <% } %>
 
-          <a href="/" class="btn btn-primary mt-3">Volver al inicio</a>
+          <a href="/" class="btn btn-primary mt-3">Volver al inicio <i class="bi bi-arrow-right ms-1"></i></a>
         </div>
       </div>
-    </div>
+    </main>
   </body>
 </html>

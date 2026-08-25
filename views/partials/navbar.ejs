@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark app-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/">App</a>
+    <a class="navbar-brand d-flex align-items-center" href="/"><span class="brand-mark"><i class="bi bi-grid-1x2-fill"></i></span>Control</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -10,6 +10,7 @@
         <li class="nav-item">
           <a class="nav-link" href="/">Inicio</a>
         </li>
+        <li class="nav-divider d-none d-lg-block"></li>
         <li class="nav-item">
           <a class="nav-link" href="/register">Registro</a>
         </li>
@@ -23,7 +24,16 @@
       <div class="d-flex gap-2">
         <a href="/users/new" class="btn btn-outline-light btn-sm">Nuevo usuario</a>
         <a href="/clients/new" class="btn btn-outline-light btn-sm">Nuevo cliente</a>
+        <button id="logoutButton" type="button" class="btn btn-outline-warning btn-sm">Cerrar sesión</button>
       </div>
     </div>
   </div>
 </nav>
+
+<script>
+  document.getElementById('logoutButton').addEventListener('click', async () => {
+    await fetch('/auth/logout', { method: 'POST' });
+    localStorage.removeItem('jwtToken');
+    window.location.href = '/auth/login';
+  });
+</script>

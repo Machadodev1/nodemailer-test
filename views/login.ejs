@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <%- include('partials/head', { title: 'Login' }) %>
+</head>
+<body>
+  <main class="auth-page">
+    <section class="auth-aside">
+      <div class="d-flex align-items-center gap-2 fw-semibold"><span class="brand-mark"><i class="bi bi-grid-1x2-fill"></i></span>Control</div>
+      <div>
+        <div class="auth-kicker mb-3">Gestión centralizada</div>
+        <h1>Todo bajo control.</h1>
+        <p class="mt-4">Administra usuarios y clientes desde un espacio de trabajo claro, seguro y diseñado para concentrarte en lo importante.</p>
+      </div>
+      <div class="auth-footnote">Acceso protegido · JWT Authentication</div>
+    </section>
+    <section class="auth-panel">
+      <div class="auth-form">
+        <div class="page-eyebrow">Área segura</div>
+        <h2 class="mb-2">Bienvenido de nuevo</h2>
+        <p class="text-secondary mb-4">Ingresa tus credenciales para continuar.</p>
+        <% if (typeof error !== 'undefined' && error) { %>
+          <div class="alert alert-danger"><%= error %></div>
+        <% } %>
+        <div id="loginError" class="alert alert-danger login-error mb-3" role="alert"></div>
+        <form action="/auth/login" method="post">
+        <div class="mb-3">
+            <label for="correo" class="form-label">Correo</label>
+            <input type="email" class="form-control" id="correo" name="correo" required>
+        </div>
+        <div class="mb-3">
+            <label for="contra" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="contra" name="contra" required>
+        </div>
+          <button type="submit" class="btn btn-primary w-100">Iniciar sesión <i class="bi bi-arrow-right ms-1"></i></button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const form = event.currentTarget;
+            const response = await fetch(form.action, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    correo: form.correo.value,
+                    contra: form.contra.value,
+                }),
+            });
+            const result = await response.json();
+
+            if (!response.ok) {
+                const errorBox = document.getElementById('loginError');
+                errorBox.textContent = result.message;
+                errorBox.style.display = 'block';
+                return;
+            }
+
+            localStorage.setItem('jwtToken', result.token);
+            window.location.href = '/';
+        });
+    </script>
+</body>
+</html>
